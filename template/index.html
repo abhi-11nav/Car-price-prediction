@@ -1,0 +1,96 @@
+ <!DOCTYPE HTML>
+<html lang='en'>
+
+<head>
+	<meta charset = "UTF=8">
+	<title> Car-Price-Predictor </title>
+	<style type="text/css">
+		form{
+			margin-left: 300px;	
+		}
+		h1{
+			text-align: center;
+			background-color: lightgray;
+			padding: 0px 20px 0px;
+		}
+		label{
+			padding-bottom: 20px;
+		}
+		.features{
+			padding-bottom: 20px;
+			margin-bottom: 20px;
+		}
+
+		button{
+			padding: 10px;
+			font-size: 15px;
+			margin-left: 100px;
+			margin-top: 50px;
+		}
+
+		#prediction_text{
+			padding-left: 300px;
+			padding-top: 50px;
+		}
+
+	</style>
+</head>
+
+<body>
+	<div class="login">
+		<h1> CAR RESALE VALUE PREDICTOR  </h1>
+		<form action="{{ url_for('predict')}} "method="post">
+
+    		<input class="features" type="number" name="km_driven" placeholder="KILOMETERS DRIVEN" required="required"/><br>
+
+        	<input class="features" type="number" name="year" placeholder="PURCHASED YEAR" required="required"/><br>
+
+			<label for="owner"> OWNER STATUS </label>
+			<select class="features" name="owner" id="owner" required="required">
+			<option value="First">FIRST</option>
+			<option value="Second">SECOND</option>
+			<option value="Third">THIRD</option>
+			<option value="Foruth">FOURTH</option>
+			<option value="Test_drive">TEST DRIVE CAR</option>
+			</select>
+			<br>
+
+			<label for="fuel_type">FUEL TYPE </label>
+			<select class="features" name="fuel_type" id="fuel_type" required="required">
+			<option value="Petrol">PETROL</option>
+			<option value="Diesel">DIESEL</option>
+			<option value="CNG">CNG</option>
+			<option value="LPG">LPG</option>
+			</select>
+			<br>
+
+			<label for="seller_type">SELLER TYPE</label>
+			<select class="features" name="seller_type" id="seller_type" required="required">
+			<option value="Individual">INDIVIDUAL</option>
+			<option value="Dealer">DEALER</option>
+			<option value="Trustmark_dealer">TRUSTMARK DEALER</option>
+			</select>
+			<br>
+
+			<label for="transmission">TRANSMISSION TYPE</label>
+			<select class="features" name="transmission" id="transmission" required="required">
+			<option value="Manual">MANUAL </option>
+			<option value="Automatic">AUTOMATIC</option>
+			</select>
+			<br>
+
+        	<button type="SUBMIT" class="btn btn-primary btn-block btn-large">predict</button>
+    	</form>
+
+  		 <br>
+   		<br>
+   		
+   		<div id="prediction_text">
+   		{{ prediction_text }}
+   		</div>
+
+ 	</div>
+
+</body>
+</html> 
+</body>
