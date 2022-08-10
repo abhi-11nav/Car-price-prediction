@@ -10,6 +10,7 @@ from flask import Flask, render_template, request
 import numpy as np 
 import pickle
 
+from sklearn.preprocessing import StandardScaler
 
 
 
@@ -17,7 +18,9 @@ app = Flask(__name__, template_folder='template')
 
 
 model = pickle.load(open("model.pkl","rb"))
-    
+
+scaler = pickle.load(open("scaler.pkl","rb"))
+
 @app.route("/",methods=["GET"])
 def home():
     return render_template("/index.html")
@@ -84,9 +87,12 @@ def predict():
         
         features = np.array([km_driven, owner, car_age, fuel_Diesel, fuel_LPG,fuel_Petrol, seller_type_Individual, seller_type_Trustmark_Dealer, transmission_Manual]).reshape(1,-1)
         
+        
         prediction = model.predict(features)
-
-        return render_template("/index.html", prediction_text="THE SELLING PRICE IS AROUND "+str(prediction))
+        
+        prediction = scaler.inverse_transform(prediction.reshape(1,-1))
+        
+        return render_template("/index.html", prediction_text="THE SELLING PRICE IS AROUND "+str(prediction[0][0]))
 
 if __name__ == '__main__':
     app.run(debug=True)
